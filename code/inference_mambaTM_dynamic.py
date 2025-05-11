@@ -17,7 +17,7 @@ def get_args():
     parser.add_argument('--num_frames', type=int, default=1000, help='max number of frames')
     parser.add_argument('--clip', type=int, default=120, help='max number of frames in a temporal patch')
     parser.add_argument('--ps', type=int, default=256, help='max spatial dimensions for a patch')
-    parser.add_argument('--model', type=str, default='MambaTM3', help='type of model to construct')
+    parser.add_argument('--model', type=str, default='MambaTM', help='type of model to construct')
     parser.add_argument('--version', type=str, default="v2")
     parser.add_argument('--n_features', type=int, default=16, help='base # of channels for Conv')
     parser.add_argument('--n_blocks', type=int, default=6, help='# of blocks in middle part of the model')

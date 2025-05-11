@@ -17,9 +17,9 @@ def get_args():
     parser.add_argument('--patch-size', '-ps', dest='patch_size', type=int, default=544, help='Patch size')
     parser.add_argument('--num_frames', type=int, default=120, help='max number of frames')
     parser.add_argument('--chunk_frames', type=int, default=120, help='frames in split chunks')
-    parser.add_argument('--data_path', type=str, default='~/data/lmdb_ATSyn/test_lmdb/', help='path of validation imgs')
-    parser.add_argument('--info_path', type=str, default='~/data/lmdb_ATSyn/test_lmdb/test_info.json', help='info of testing imgs')   
-    parser.add_argument('--result_path', '-result', type=str, default='~/data/test_Mamba_video', help='path of validation imgs')
+    parser.add_argument('--data_path', type=str, default='~', help='path of validation imgs')
+    parser.add_argument('--info_path', type=str, default='~', help='info of testing imgs')   
+    parser.add_argument('--result_path', '-result', type=str, default='~', help='path of validation imgs')
     parser.add_argument('--model_path', '-mp', type=str, default=False, help='Load model from a .pth file')
     parser.add_argument('--num_workers', type=int, default=8, help='number of workers in dataloader')
     

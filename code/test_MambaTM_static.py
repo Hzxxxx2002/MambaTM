@@ -16,9 +16,9 @@ def get_args():
     parser.add_argument('--loaded_frames', type=int, default=48, help='number of frames for the model')
     parser.add_argument('--valid_frames', type=int, default=48, help='number of frames for evaluation')
     parser.add_argument('--num_workers', type=int, default=8, help='number of workers in dataloader')
-    parser.add_argument('--val_path', type=str, default='~/lab/data/TurbulenceData/static_new/test_static', help='path of validation imgs')
+    parser.add_argument('--val_path', type=str, default='~', help='path of validation imgs')
     parser.add_argument('--load', '-f', type=str, default=False, help='Load model from a .pth file')
-    parser.add_argument('--result_path', '-result', type=str, default='~/data/simulated_data/test_MambaTMRef_static', help='path of validation imgs')
+    parser.add_argument('--result_path', '-result', type=str, default='~', help='path of validation imgs')
     
     parser.add_argument('--model', type=str, default='MambaTM', help='type of model to construct')
     parser.add_argument('--output_full', action='store_true', help='output # of frames is the same as the input')

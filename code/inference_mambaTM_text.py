@@ -85,9 +85,10 @@ def get_args():
     parser.add_argument('--n_frames', type=int, default=100, help='base # of channels for Conv')
     parser.add_argument('--resize', type=int, default=256, help='target size')
     parser.add_argument('--patch_size', type=int, default=256, help='patch size')
-    parser.add_argument('--output_folder_name', '-oname', type=str, default="default", help='version of Mamba')
+    parser.add_argument('--output_folder_name', '-oname', type=str, default="default", help='output directory name')
+    parser.add_argument('--input_folder_name', '-iname', type=str, default="default", help='input directory name')
   
-    parser.add_argument('--model', type=str, default='MambaTM3', help='type of model to construct')
+    parser.add_argument('--model', type=str, default='MambaTM', help='type of model to construct')
     parser.add_argument('--version', type=str, default='v2', help='version of Mamba')
     parser.add_argument('--output_full', action='store_true', help='output # of frames is the same as the input')
     parser.add_argument('--n_features', type=int, default=16, help='base # of channels for Conv')
@@ -103,8 +104,8 @@ model = Model(args, input_size=(args.patch_size, args.patch_size, args.n_frames)
 checkpoint = torch.load(args.load)
 model.load_state_dict(checkpoint['state_dict'] if 'state_dict' in checkpoint.keys() else checkpoint)
 
-input_dir = '/home/zhan3275/lab/data/TurbulenceData/text_data/video_crop/'
-output_dir = f'/home/zhan3275/data/CVPR_results/MambaTM3/{args.output_folder_name}/f_{args.n_frames}_{args.resize}'
+input_dir = args.input_folder_name
+output_dir = args.output_folder_name
 start_frame = 1 + (100-args.n_frames)//2
 resize = float(args.resize)/440
 # input_dir = '/home/xingguang/Documents/turb/datasets/OTIS/Color/Fixed Patterns'
