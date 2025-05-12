@@ -73,6 +73,8 @@ srun --ntasks={number of GPUs} --gpus-per-task=1   python train_MambaTM_static.p
 
 We injected a certain level of Gaussian noise during training in both modalities for better generalization on real-world data.
 
+Our pre-trained models are in ***code/model_zoo***
+
 <h2 id="Evaluation">🚀 Performance Evaluation</h2>
 Dynamic scene model on ATSyn_dynamic dataset:
 
@@ -87,10 +89,10 @@ Inference on Turbulence Text dataset, we generate the central 4 frames for the t
 ```
 python inference_MambaTM_text.py -f ${testing_static_scene_model_path} --n_frames 60 --resize 360
 ```
-Our pre-trained models are in *code/model_zoo*
 
 
 <h2 id="links">👍 Useful Links</h2>
+
 ### [Turbulence @ Purdue i2Lab](https://engineering.purdue.edu/ChanGroup/project_turbulence.html) 
 
 ### Restoration:
