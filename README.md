@@ -31,14 +31,14 @@ pip install -r requirements.txt
 
 First download and prepare the [ATSyn dataset](https://github.com/xg416/DATUM/) first.
 
-To train the latent phase distortion (LPD), please download the [LSDIR dataset](https://ofsoundof.github.io/lsdir-data/).
+To train the ReBlurNet, please download the [LSDIR dataset](https://ofsoundof.github.io/lsdir-data/).
 
 
 <h2 id="Training">🛠️ Training</h2>
-Our model is trained in 2 stages: LPD learning and training MambaTM
+Our model is trained in 2 stages: ReBlurNet and MambaTM
 
-### Learn the Latent Phase Distortion (LPD)
-For the training of the LPD, run the following:
+### Train the ReBlurNet
+You can directly use our pre-trained ReBlurNet at *code/LPD_learning/model_zoo/NAF_decoder.pth*, if you want to train it from scratch, run the following:
 ```
 cd code/LPD_learning
 python train_vae.py --iters ${number_of_iterations} -ps ${image_patch_size} -b ${batch_size} --LSDIR_path ${path_to_LSDIR_dataset} --ATSyn_dynamic_path ${path_to_ATSyn_dynamic_dataset} --ATSyn_static_path ${path_to_ATSyn_static_dataset} --exp_dir ${path_to_save_checkpoints}
