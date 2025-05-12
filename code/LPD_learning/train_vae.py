@@ -171,11 +171,15 @@ def validate(model, dataloader, device):
 
 def get_args():
     parser = argparse.ArgumentParser(description='Train the UNet on images and restoration')
-    parser.add_argument('--iters', type=int, default=10000, help='Number of iterations')
+    parser.add_argument('--iters', type=int, default=30000, help='Number of iterations')
     parser.add_argument('--patch-size', '-ps', dest='patch_size', type=int, default=256, help='patch size')
     parser.add_argument('--batch-size', '-b', dest='batch_size', type=int, default=32)
     parser.add_argument('--enc_blocks', type=int, default=8)
     parser.add_argument('--net_width', type=int, default=16)
+    parser.add_argument('--LSDIR_path', type=str, default=None, help='path of the LSDIR dataset')
+    parser.add_argument('--ATSyn_dynamic_path', type=str, default=None, help='path of the ATSyn_dynamic dataset')
+    parser.add_argument('--ATSyn_static_path', type=str, default=None, help='path of the ATSyn_static dataset')
+    parser.add_argument('--exp_dir', type=str, default="./exp", help='directory to save the checkpoints')
     parser.add_argument('--load', type=str, default=None)
     return parser.parse_args()
 
@@ -191,21 +195,21 @@ if __name__ == '__main__':
     
     args = get_args()
     # define model hyperparameters
-    LR = 0.001 # this is good, no need to change
+    LR = 0.001 
     IMAGE_SIZE = args.patch_size
     CHANNELS = 3
     BATCH_SIZE = args.batch_size
     ITERS = args.iters
-    KLD_WEIGHT = 0.0002  # learning rate down, kld_weight up
-    PRINT_FREQ = 100
+    KLD_WEIGHT = 0.01 
+    PRINT_FREQ = 500
     ENC_BLOCKS = args.enc_blocks
     NET_WIDTH = args.net_width
     # define the dataset path
-    DATASET_PATH = "/home/zhan3275/data/LSDIR/LSDIR"
-    train_params = ["/home/zhan3275/data/syn_hybrid_2/train/turb_param", "/home/zhan3275/lab/data/TurbulenceData/static_new/train_params"]
-    val_params = ["/home/zhan3275/data/syn_hybrid_2/test/turb_param", "/home/zhan3275/lab/data/TurbulenceData/static_new/test_params"]
-    sim_path = "/home/zhan3275/turb/recon/semi/utils"
-    EXP_DIR = f"/home/zhan3275/data/log_rnn/VAE/blur_{ENC_BLOCKS}blks_{NET_WIDTH}width_NAF_allparam"
+    DATASET_PATH = args.LSDIR_path
+    train_params = [f"{args.ATSyn_dynamic_path}/train/turb_param", f"{args.ATSyn_static_path}/train_params"]
+    val_params = [f"{args.ATSyn_dynamic_path}/test/turb_param", f"{args.ATSyn_static_path}/test_params"]
+    sim_path = "./utils"
+    EXP_DIR = args.exp_dir
     MODEL_WEIGHTS_PATH = f"{EXP_DIR}/latest.pth"
     MODEL_BEST_WEIGHTS_PATH = f"{EXP_DIR}/best.pth"  
     os.makedirs(EXP_DIR, exist_ok = True) 
@@ -254,11 +258,7 @@ if __name__ == '__main__':
         init_ks = loaded["vae-zernike"]["simulator.p2s_blur_left.weight"].shape[2]
         model = ZernikeVAE(train_params, val_params, sim_path, 33, IMAGE_SIZE, init_ks, ENC_BLOCKS, NET_WIDTH)
         model = model.to(DEVICE)
-        try:
-            model.load_state_dict(loaded["vae-zernike"])
-        except:
-            change_checkpoint(model, loaded)
-            model.load_state_dict(loaded["vae-zernike"])
+        model.load_state_dict(loaded["vae-zernike"])
     else:
         model = ZernikeVAE(train_params, val_params, sim_path, 33, IMAGE_SIZE, 65, ENC_BLOCKS, NET_WIDTH)
         model = model.to(DEVICE)

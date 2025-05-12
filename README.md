@@ -1,16 +1,52 @@
 <div align="center">
-
-### 【CVPR'2025 Highlight🔥】Learning Phase Distortion with Selective State Space Models for Video Turbulence Mitigation
+  <h1> MambaTM [CVPR 2025 Highlight🔥] </h1>
+  <h2>Learning Phase Distortion with Selective State Space Models for Video Turbulence Mitigation</h2>
 </div>
 
-## [Project Page](xg416.github.io/MambaTM/) | [Paper](https://arxiv.org/abs/2504.02697)
+<p align="center">Xingguang Zhang, Nicholas Chimitt, Xijun Wang, Yu Yuan, Stanley H. Chan</p>
+<p align="center"> 
+   <a href="xg416.github.io/MambaTM/">Project Page</a>  | 
+  <a href="https://arxiv.org/abs/2504.02697">Paper</a> 
+</p>
 
-## 🧩 Prepare Training Datasets
-Please refer to https://github.com/xg416/DATUM
+## 📑 Contents
+- [Environment Installation](#environment-installation)
+- [Prepare Dataset](#Datasets-prepare)
+- [Training](#Training)
+- [Performance Evaluation](#Evaluation)
+- [Useful Resources](#links)
+- [Citation](#Citation)
+- [License](#license)
 
-## 🛠️ Training 
+<h2 id="environment-installation">🔨 Environment Installation</h2>
+
+```shell
+conda create -n MambaTM python=3.11
+conda activate MambaTM
+cd code
+pip install -r requirements.txt
+```
+
+<h2 id="Datasets-prepare">🧩 Prepare Training Datasets</h2>
+
+First download and prepare the [ATSyn dataset](https://github.com/xg416/DATUM/) first.
+
+To train the latent phase distortion (LPD), please download the [LSDIR dataset](https://ofsoundof.github.io/lsdir-data/).
+
+
+<h2 id="Training">🛠️ Training</h2>
+Our model is trained in 2 stages: LPD learning and training MambaTM
+
 ### Learn the Latent Phase Distortion (LPD)
-
+For the training of the LPD, run the following:
+```
+cd code/LPD_learning
+python train_vae.py --iters ${number_of_iterations} -ps ${image_patch_size} -b ${batch_size} --LSDIR_path ${path_to_LSDIR_dataset} --ATSyn_dynamic_path ${path_to_ATSyn_dynamic_dataset} --ATSyn_static_path ${path_to_ATSyn_static_dataset} --exp_dir ${path_to_save_checkpoints}
+```
+When the training is finished, run
+```
+mv ${the_best_checkpoint} code/LPD_learning/model_zoo/NAF_decoder.pth
+```
 
 ### Train the MambaTM
 
@@ -28,11 +64,16 @@ Other arguments and hyperparameters for training are described in the *train_Mam
 
 Later, you can start finetuning on the static scene images for the static scene model by running the following:
 ```
-python train_MambaTM_static.py --train_path ${your_training_data_path} --val_path ${your_testing_data_path} -f ${pretrained_dynamic_scene_model_path} 
+python train_MambaTM_static.py --train_path ${your_training_data_path} --val_path ${your_testing_data_path} -f ${pretrained_dynamic_scene_model_path} --start_over
 ```
+Or:
+```
+srun --ntasks={number of GPUs} --gpus-per-task=1   python train_MambaTM_static.py --train_path ${your_training_data_path} --val_path ${your_testing_data_path} -f ${pretrained_dynamic_scene_model_path} --start_over
+```
+
 We injected a certain level of Gaussian noise during training in both modalities for better generalization on real-world data.
 
-## 🚀 Performance Evaluation
+<h2 id="Evaluation">🚀 Performance Evaluation</h2>
 Dynamic scene model on ATSyn_dynamic dataset:
 ```
 python test_MambaTM_dynamic.py --data_path ${your_testing_data_path} --info_path ${the associated test_info.json} -result ${path_for_stored_output} -mp ${testing_model_path} 
@@ -48,7 +89,7 @@ python inference_MambaTM_text.py -f ${testing_static_scene_model_path} --n_frame
 Please modify the path of the input and output images in the *inference_MambaTM_text.py* 
 
 
-## 👍 Useful Links
+<h2 id="links">👍 Useful Links</h2>
 ### [Turbulence @ Purdue i2Lab](https://engineering.purdue.edu/ChanGroup/project_turbulence.html) 
 
 ### Restoration:
@@ -63,8 +104,7 @@ Please modify the path of the input and output images in the *inference_MambaTM_
 ### Datasets:
 [OTIS dataset](https://zenodo.org/records/161439) | [TSRWGAN data](https://zenodo.org/records/5101910) | [Turbulence Text](https://drive.google.com/file/d/1QWvQfPM-lJwGqK_Wm6lDbi-tYBu-Uopq/view?usp=sharing) | [Heat Chamber](https://drive.google.com/file/d/14iVachB95bCCtke8ONPD9CCH20JO75v2/view?usp=sharing) | [TMT dataset](https://github.com/xg416/TMT) | [BRIAR](https://arxiv.org/abs/2211.01917) (Not public yet)
 
-
-## 📘 Citation
+<h2 id="Citation">📘 Citation</h2>
 Please consider citing our work as follows if it is helpful.
 ```
 @InProceedings{zhang2025MambaTM,
@@ -75,3 +115,7 @@ Please consider citing our work as follows if it is helpful.
     year={2025}
 }
 ```
+
+<h2 id="license">🎫 License</h2>
+
+This project is released under the MIT license. Please refer to the acknowledged repositories for their licenses.
