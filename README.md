@@ -105,7 +105,7 @@ python inference_MambaTM_text.py -f ${testing_static_scene_model_path} --n_frame
 [Link](https://www.nature.com/articles/s42256-021-00392-1) Jin, Darui, Ying Chen, Yi Lu, Junzhang Chen, Peng Wang, Zichao Liu, Sheng Guo, and Xiangzhi Bai. "Neutralizing the impact of atmospheric turbulence on complex scene imaging via deep learning." Nature Machine Intelligence 3, no. 10 (2021): 876-884.
 
 ### Datasets:
-[OTIS dataset](https://zenodo.org/records/161439) | [TSRWGAN data](https://zenodo.org/records/5101910) | [Turbulence Text](https://drive.google.com/file/d/1QWvQfPM-lJwGqK_Wm6lDbi-tYBu-Uopq/view?usp=sharing) | [Heat Chamber](https://drive.google.com/file/d/14iVachB95bCCtke8ONPD9CCH20JO75v2/view?usp=sharing) | [TMT dataset](https://github.com/xg416/TMT) | [BRIAR](https://arxiv.org/abs/2211.01917) (Not public yet)
+[OTIS dataset](https://zenodo.org/records/161439) | [TSRWGAN data](https://zenodo.org/records/5101910) | [Turbulence Text](https://drive.google.com/file/d/1QWvQfPM-lJwGqK_Wm6lDbi-tYBu-Uopq/view?usp=sharing) | [Heat Chamber](https://drive.google.com/file/d/14iVachB95bCCtke8ONPD9CCH20JO75v2/view?usp=sharing) | [TMT dataset](https://github.com/xg416/TMT) | [ATSyn dataset](https://github.com/xg416/DATUM) | [BRIAR](https://arxiv.org/abs/2211.01917) (Not public yet)
 
 <h2 id="Citation">📘 Citation</h2>
 Please consider citing our work as follows if it is helpful.
