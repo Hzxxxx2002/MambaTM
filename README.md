@@ -75,6 +75,7 @@ We injected a certain level of Gaussian noise during training in both modalities
 
 <h2 id="Evaluation">🚀 Performance Evaluation</h2>
 Dynamic scene model on ATSyn_dynamic dataset:
+
 ```
 python test_MambaTM_dynamic.py --data_path ${your_testing_data_path} --info_path ${the associated test_info.json} -result ${path_for_stored_output} -mp ${testing_model_path} 
 ```
@@ -86,7 +87,7 @@ Inference on Turbulence Text dataset, we generate the central 4 frames for the t
 ```
 python inference_MambaTM_text.py -f ${testing_static_scene_model_path} --n_frames 60 --resize 360
 ```
-Please modify the path of the input and output images in the *inference_MambaTM_text.py* 
+Our pre-trained models are in *code/model_zoo*
 
 
 <h2 id="links">👍 Useful Links</h2>
