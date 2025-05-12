@@ -107,6 +107,7 @@ Our pre-trained models are in *code/model_zoo*
 
 <h2 id="Citation">📘 Citation</h2>
 Please consider citing our work as follows if it is helpful.
+
 ```
 @InProceedings{zhang2025MambaTM,
     author={Zhang, Xingguang and Chimitt, Nicholas and Wang, Xijun and Yuan, Yu and Chan, Stanley H}, 
